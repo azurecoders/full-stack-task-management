@@ -1,27 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const Navbar = () => {
   const [responsiveMenu, setResponsiveMenu] = useState<boolean>(false);
 
   return (
-    <header className="bg-gray-900">
+    <header className="bg-black">
       <nav className="container mx-auto px-3 py-5 flex justify-between items-center">
         <div>
           <Link href="/">
@@ -32,13 +26,17 @@ const Navbar = () => {
         </div>
         <ul className="hidden md:flex items-center space-x-4 ">
           <li className="text-white font-normal text-lg cursor-pointer hover:text-gray-200 duration-300 transition-all">
-            <Link href="/sign-in">Sign In</Link>
+            <Link href="/sign-in">
+              <Button className="border hover:bg-white hover:text-black">
+                Sign In
+              </Button>
+            </Link>
           </li>
           <li>
             <Link href="/sign-up">
-              <button className="bg-white text-black font-normal text-lg px-5 py-1 rounded hover:bg-gray-200 duration-300 transition-all">
+              <Button className="bg-white text-black  hover:bg-gray-200 duration-300 transition-all">
                 Sign Up
-              </button>
+              </Button>
             </Link>
           </li>
         </ul>
