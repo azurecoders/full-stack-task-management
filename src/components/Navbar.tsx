@@ -39,11 +39,19 @@ const Navbar: FC<NavbarProps> = ({ clerkUserId, user }) => {
             </h1>
           </Link>
         </div>
-        <ul className="hidden md:flex items-center space-x-4 ">
+        <ul className="hidden md:flex items-center space-x-6 ">
+          <li className="font-normal text-lg text-white">
+            <Link href="/">Home</Link>
+          </li>
           {clerkUserId ? (
-            <li className="font-bold text-lg">
-              <UserButton />
-            </li>
+            <>
+              <li className="font-normal text-lg text-white">
+                <Link href="/todo">Todo</Link>
+              </li>
+              <li className="font-bold text-lg">
+                <UserButton />
+              </li>
+            </>
           ) : (
             <>
               <li className="text-white font-normal text-lg cursor-pointer hover:text-gray-200 duration-300 transition-all">
@@ -81,16 +89,24 @@ const Navbar: FC<NavbarProps> = ({ clerkUserId, user }) => {
             </SheetTitle>
           </SheetHeader>
           <ul className="flex flex-col gap-4 my-5">
+            <li className="font-bold text-lg">
+              <Link href="/">Home</Link>
+            </li>
             {clerkUserId ? (
-              <li className="font-bold text-lg space-y-3">
-                <div>
-                  {user.firstName} {user.lastName}
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold">Manage Profile:</span>
-                  <UserButton />
-                </div>
-              </li>
+              <>
+                <li className="font-bold text-lg">
+                  <Link href="/todo">Todo</Link>
+                </li>
+                <li className="font-bold text-lg space-y-3">
+                  <div>
+                    {user.firstName} {user.lastName}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl font-bold">Manage Profile:</span>
+                    <UserButton />
+                  </div>
+                </li>
+              </>
             ) : (
               <>
                 <li className="font-bold text-lg">
