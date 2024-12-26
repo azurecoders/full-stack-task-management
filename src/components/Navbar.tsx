@@ -7,11 +7,26 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { UserButton } from "@clerk/nextjs";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-const Navbar = () => {
+interface ClerkUserTypes {
+  id: string | undefined;
+  username: string | undefined | null;
+  imageUrl: string | undefined;
+  firstName: string | undefined | null;
+  lastName: string | undefined | null;
+  emailAddresses: string | undefined;
+}
+
+interface NavbarProps {
+  clerkUserId: string | null;
+  user: ClerkUserTypes;
+}
+
+const Navbar: FC<NavbarProps> = ({ clerkUserId, user }) => {
   const [responsiveMenu, setResponsiveMenu] = useState<boolean>(false);
 
   return (
@@ -25,20 +40,28 @@ const Navbar = () => {
           </Link>
         </div>
         <ul className="hidden md:flex items-center space-x-4 ">
-          <li className="text-white font-normal text-lg cursor-pointer hover:text-gray-200 duration-300 transition-all">
-            <Link href="/sign-in">
-              <Button className="border hover:bg-white hover:text-black">
-                Sign In
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link href="/sign-up">
-              <Button className="bg-white text-black  hover:bg-gray-200 duration-300 transition-all">
-                Sign Up
-              </Button>
-            </Link>
-          </li>
+          {clerkUserId ? (
+            <li className="font-bold text-lg">
+              <UserButton />
+            </li>
+          ) : (
+            <>
+              <li className="text-white font-normal text-lg cursor-pointer hover:text-gray-200 duration-300 transition-all">
+                <Link href="/sign-in">
+                  <Button className="border hover:bg-white hover:text-black">
+                    Sign In
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="/sign-up">
+                  <Button className="bg-white text-black  hover:bg-gray-200 duration-300 transition-all">
+                    Sign Up
+                  </Button>
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
         <div className="flex md:hidden">
           <div>
@@ -58,14 +81,28 @@ const Navbar = () => {
             </SheetTitle>
           </SheetHeader>
           <ul className="flex flex-col gap-4 my-5">
-            <li className="font-bold text-lg">
-              <Link href="/sign-in">Sign In</Link>
-            </li>
-            <li>
-              <Link href="/sign-up">
-                <Button>Sign Up</Button>
-              </Link>
-            </li>
+            {clerkUserId ? (
+              <li className="font-bold text-lg space-y-3">
+                <div>
+                  {user.firstName} {user.lastName}
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl font-bold">Manage Profile:</span>
+                  <UserButton />
+                </div>
+              </li>
+            ) : (
+              <>
+                <li className="font-bold text-lg">
+                  <Link href="/sign-in">Sign In</Link>
+                </li>
+                <li>
+                  <Link href="/sign-up">
+                    <Button>Sign Up</Button>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </SheetContent>
       </Sheet>
