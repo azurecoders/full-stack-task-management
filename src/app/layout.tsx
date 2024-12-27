@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { auth, currentUser, EmailAddress } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Loader from "@/components/Loader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,18 +35,23 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Navbar
-            clerkUserId={userId}
-            user={{
-              id: user?.id,
-              username: user?.username,
-              imageUrl: user?.imageUrl,
-              firstName: user?.firstName,
-              lastName: user?.lastName,
-              emailAddresses: user?.emailAddresses[0].emailAddress,
-            }}
-          />
-          {children}
+          <ClerkLoading>
+            <Loader />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <Navbar
+              clerkUserId={userId}
+              user={{
+                id: user?.id,
+                username: user?.username,
+                imageUrl: user?.imageUrl,
+                firstName: user?.firstName,
+                lastName: user?.lastName,
+                emailAddresses: user?.emailAddresses[0].emailAddress,
+              }}
+            />
+            {children}
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>

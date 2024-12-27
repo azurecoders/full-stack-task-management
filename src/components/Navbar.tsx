@@ -12,20 +12,6 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { FC, useState } from "react";
 
-interface ClerkUserTypes {
-  id: string | undefined;
-  username: string | undefined | null;
-  imageUrl: string | undefined;
-  firstName: string | undefined | null;
-  lastName: string | undefined | null;
-  emailAddresses: string | undefined;
-}
-
-interface NavbarProps {
-  clerkUserId: string | null;
-  user: ClerkUserTypes;
-}
-
 const Navbar: FC<NavbarProps> = ({ clerkUserId, user }) => {
   const [responsiveMenu, setResponsiveMenu] = useState<boolean>(false);
 
