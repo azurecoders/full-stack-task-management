@@ -1,10 +1,10 @@
+import Loader from "@/components/Loader";
 import Navbar from "@/components/Navbar";
-import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
-import { auth, currentUser, EmailAddress } from "@clerk/nextjs/server";
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Loader from "@/components/Loader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

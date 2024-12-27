@@ -61,7 +61,7 @@ export const FetchUserTodosAction = async (userId: string) => {
       };
     }
 
-    let sanitizeTodo: {
+    const sanitizeTodo: {
       _id: string;
       title: string;
       description: string;
